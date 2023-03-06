@@ -4,12 +4,11 @@ project(mbf_advanced)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(BehaviorTreeV3 REQUIRED)
-
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   geometry_msgs
   actionlib
+  behaviortree_cpp_v3
 )
 
 catkin_package(
@@ -31,7 +30,7 @@ target_compile_definitions(mbf_client_node
 
 add_executable(mbf_behavior_tree src/mbf_behavior_tree.cpp)
 target_include_directories(mbf_behavior_tree PRIVATE include ${catkin_INCLUDE_DIRS})
-target_link_libraries(mbf_behavior_tree BT::behaviortree_cpp_v3 ${catkin_LIBRARIES})
+target_link_libraries(mbf_behavior_tree ${catkin_LIBRARIES})
 target_compile_definitions(mbf_behavior_tree
         PRIVATE
         BT_XML_PATH="${PROJECT_SOURCE_DIR}/param/mbf_behavior_tree.xml"
